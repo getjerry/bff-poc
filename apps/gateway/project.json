@@ -1,0 +1,56 @@
+{
+  "name": "gateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/gateway/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/gateway",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/gateway/src/main.ts",
+        "tsConfig": "apps/gateway/tsconfig.app.json",
+        "assets": ["apps/gateway/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["generate-supergraph"],
+      "options": {
+        "command": "npx hive-gateway -c src/gateway.config.ts supergraph supergraph.graphql",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "generate-supergraph": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx mesh-compose -o supergraph.graphql -c src/mesh.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "profile",
+  "name": "referral",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/profile/src",
+  "sourceRoot": "apps/referral/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -12,7 +12,7 @@
         "args": ["node-env=production"],
         "assets": [
           {
-            "input": "apps/profile/src",
+            "input": "apps/referral/src",
             "glob": "**/*.proto",
             "output": "."
           }

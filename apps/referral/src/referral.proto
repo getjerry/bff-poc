@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package referral;
+
+service ReferralStatsService {
+  rpc GetReferralStats (GetReferralStatsRequest) returns (ReferralStatsResponse);
+}
+
+message GetReferralStatsRequest {
+  string userId = 1;
+}
+
+message ReferralStatsResponse {
+  string id = 1;
+  string userId = 2;
+  string referralCount = 3;
+}
